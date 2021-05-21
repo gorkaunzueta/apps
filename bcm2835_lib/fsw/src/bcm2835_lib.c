@@ -18,7 +18,7 @@
 #include <sys/types.h>
 
 #define BCK2835_LIBRARY_BUILD
-#include "bcm2835.h"
+#include "bcm2835_lib.h"
 
 #include "osconfig.h"
 #include "cfe.h"

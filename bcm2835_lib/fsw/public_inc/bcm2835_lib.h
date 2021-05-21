@@ -785,7 +785,7 @@ extern volatile uint32_t *bcm2835_spi1;
   Available after bcm2835_init has been called (as root)
 */
 
-extern volatile uint32_t i2c_mutexvar;
+extern uint32_t i2c_mutexvar;
 
 /*! \brief bcm2835RegisterBase
   Register bases for bcm2835_regbase()
