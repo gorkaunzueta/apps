@@ -33,13 +33,13 @@
 #include "cfe.h"
 
 // ------------------------------------------------ PUBLIC FUNCTION DEFINITIONS
-void nodemcu_readregister(uint8_t slaveaddress, uint8_t registertoread, uint8_t *rxBuffer, ssize_t length){
+void nodemcu_readregister(uint8_t slaveaddress, char registertoread, char *rxBuffer, ssize_t length){
     
     // Set slave address in the i2c
     bcm2835_i2c_setSlaveAddress(slaveaddress);
     
     // Write the register and read the number of bytes expected
-    bcm2835_i2c_write(&registertosend,1);
+    bcm2835_i2c_write(&registertoread,1);
     bcm2835_i2c_read(rxBuffer,length);
 
 }
@@ -47,23 +47,16 @@ void nodemcu_readregister(uint8_t slaveaddress, uint8_t registertoread, uint8_t 
 float nodemcu_gettime(void){
 
     // Declare variables
-    uint8_t rxBuffer[4] = {0};
+    char rxBuffer[4] = {0};
     float result = 0;
+    uint32_t temp;
     
     // Read register from the nodemcu
     nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_TIME_REG, rxBuffer, 4);
-    
-    // Set up the msb
-    result |=  rxBuffer[0];   
-        
-    // Loop to fill the 3 remaining bytes 
-    for (i=1; i++; i<4){
-        
-        // Shift the result 8 bits and add the following byte
-        result <<= 8;
-        result |= rxBuffer[i];
-    
-    }
+
+    temp = ((uint32_t) rxBuffer[0] << 24) | ((uint32_t) rxBuffer[1] << 16 ) | ((uint32_t) rxBuffer[2] << 8) | ((uint32_t) rxBuffer[3]);
+       
+    result = *(float *)&temp;
 
     return result;
 

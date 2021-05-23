@@ -320,23 +320,11 @@ void GPS_APP_ProcessGroundCommand(CFE_SB_Buffer_t *SBBufPtr)
 int32 GPS_APP_ReportHousekeeping(const CFE_MSG_CommandHeader_t *Msg)
 {
     int i;
-    //char txBuffer[6] = {"x is "};
-    char rxBuffer[1] = {0};
-    char registertosend = 0x35;
-    
+        
     if(OS_MutSemTake(i2c_mutexvar) != OS_SUCCESS){
         OS_printf("GPS APP: I2C Busy. \n");
         return CFE_SUCCESS;
     }
-
-    //txBuffer[5] = x;
-    
-    /* Get the acceleration values */
-    //mpu9dof_read_accel ( &GPS_APP_Data.mpu9dof, &GPS_APP_Data.Accel_x, &GPS_APP_Data.Accel_y, &GPS_APP_Data.Accel_z );
-    //bcm2835_i2c_setSlaveAddress(0x08);
-    //bcm2835_i2c_write(txBuffer,6);
-
-    //x++;
 
     GPS_APP_Data.Time = nodemcu_gettime();
     GPS_APP_Data.XPos = 0;
@@ -349,7 +337,7 @@ int32 GPS_APP_ReportHousekeeping(const CFE_MSG_CommandHeader_t *Msg)
     GPS_APP_Data.HkTlm.Payload.CommandErrorCounter = GPS_APP_Data.ErrCounter;
     GPS_APP_Data.HkTlm.Payload.CommandCounter      = GPS_APP_Data.CmdCounter;
     GPS_APP_Data.HkTlm.Payload.Time                = GPS_APP_Data.Time;
-    GPS_APP_Data.HkTlm.Payload.XPos                = GPS_APP_Data.XPos
+    GPS_APP_Data.HkTlm.Payload.XPos                = GPS_APP_Data.XPos;
     GPS_APP_Data.HkTlm.Payload.YPos                = GPS_APP_Data.YPos;
     GPS_APP_Data.HkTlm.Payload.ZPos                = GPS_APP_Data.ZPos;
 
@@ -368,7 +356,7 @@ int32 GPS_APP_ReportHousekeeping(const CFE_MSG_CommandHeader_t *Msg)
     }
     
     CFE_EVS_SendEvent(GPS_APP_STARTUP_INF_EID, CFE_EVS_EventType_INFORMATION, "GPS App: Report HK Done. Time: %f. %s",
-                      GPS_APP_VERSION_STRING);
+                      GPS_APP_Data.Time, GPS_APP_VERSION_STRING);
                       
     if(OS_MutSemGive(i2c_mutexvar) != OS_SUCCESS){
         OS_printf("GPS APP: Cannot give mutex. \n");

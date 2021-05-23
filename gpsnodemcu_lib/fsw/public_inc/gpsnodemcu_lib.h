@@ -55,7 +55,7 @@ extern "C"{
  * @description This function initializes click configuration structure to init state.
  * @note All used pins will be set to unconnected state.
  */
-void nodemcu_readregister(uint8_t slaveaddress, uint8_t registertoread, uint8_t *rxBuffer, ssize_t length);
+void nodemcu_readregister(uint8_t slaveaddress, char registertoread, char *rxBuffer, ssize_t length);
 
 /**
  * @brief Config Object Initialization function.
