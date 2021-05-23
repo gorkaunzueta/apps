@@ -43,6 +43,8 @@
 */
 GPS_APP_Data_t GPS_APP_Data;
 
+char x = 0;
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * *  * * * * **/
 /* GPS_APP_Main() -- Application entry point and main process loop         */
 /*                                                                            */
@@ -321,16 +323,34 @@ void GPS_APP_ProcessGroundCommand(CFE_SB_Buffer_t *SBBufPtr)
 int32 GPS_APP_ReportHousekeeping(const CFE_MSG_CommandHeader_t *Msg)
 {
     int i;
+    //char txBuffer[6] = {"x is "};
+    char rxBuffer[1] = {0};
+    char registertosend = 0x35;
     
     if(OS_MutSemTake(i2c_mutexvar) != OS_SUCCESS){
         OS_printf("GPS APP: I2C Busy. \n");
         return CFE_SUCCESS;
     }
+
+    //txBuffer[5] = x;
     
     /* Get the acceleration values */
-    mpu9dof_read_accel ( &GPS_APP_Data.mpu9dof, &GPS_APP_Data.Accel_x, &GPS_APP_Data.Accel_y, &GPS_APP_Data.Accel_z );
-    
+    //mpu9dof_read_accel ( &GPS_APP_Data.mpu9dof, &GPS_APP_Data.Accel_x, &GPS_APP_Data.Accel_y, &GPS_APP_Data.Accel_z );
+    bcm2835_i2c_setSlaveAddress(0x08);
+    //bcm2835_i2c_write(txBuffer,6);
 
+    //x++;
+
+    GPS_APP_Data.Accel_x = 0;
+    GPS_APP_Data.Accel_y = 0;
+    GPS_APP_Data.Accel_z = 0;
+
+    bcm2835_i2c_write(&registertosend,1);
+    bcm2835_i2c_read(rxBuffer,1);
+
+    //bcm2835_i2c_read_register_rs( &registertosend, rxBuffer, 1);
+    OS_printf("GPS_APP: Data read: %d \n", rxBuffer[0]);
+      
     /*
     ** Get command execution counters...
     */

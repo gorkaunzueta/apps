@@ -69,7 +69,7 @@
  * \defgroup i2c speed. BAUDRATE
  * \{
  */
-#define BAUDRATE             100000
+#define BAUDRATE             10000
 
 /**
  * \defgroup i2c_address MPU9150A I2C address
