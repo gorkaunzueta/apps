@@ -66,9 +66,10 @@ typedef struct
 {
     uint8   CommandErrorCounter;
     uint8   CommandCounter;
-    int16_t Accel_x;
-    int16_t Accel_y;
-    int16_t Accel_z;
+    float   Time;
+    float   XPos;
+    float   YPos;
+    float   ZPos;
     uint8   spare[2];
 } GPS_APP_HkTlm_Payload_t;
 

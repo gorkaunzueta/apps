@@ -38,7 +38,7 @@
 #include "cfe_sb.h"
 #include "cfe_es.h"
 
-#include "mpu9dof_lib.h"
+#include "gpsnodemcu_lib.h"
 
 #include "gps_app_perfids.h"
 #include "gps_app_msgids.h"
@@ -70,10 +70,10 @@ typedef struct
     uint8 CmdCounter;
     uint8 ErrCounter;
     
-    mpu9dof_t mpu9dof;
-    int16_t Accel_x;
-    int16_t Accel_y;
-    int16_t Accel_z;
+    float Time;
+    float XPos;
+    float YPos;
+    float ZPos;
     
     /*
     ** Housekeeping telemetry packet...
