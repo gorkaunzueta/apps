@@ -355,7 +355,7 @@ int32 GPS_APP_ReportHousekeeping(const CFE_MSG_CommandHeader_t *Msg)
         CFE_TBL_Manage(GPS_APP_Data.TblHandles[i]);
     }
     
-    CFE_EVS_SendEvent(GPS_APP_STARTUP_INF_EID, CFE_EVS_EventType_INFORMATION, "GPS App: Report HK Done. Time: %f.XPos: %f. Ypos: %f. ZPos: %f",
+    CFE_EVS_SendEvent(GPS_APP_STARTUP_INF_EID, CFE_EVS_EventType_INFORMATION, "GPS App: Report HK Done. Time: %.2f. XPos: %.2f. Ypos: %.2f. ZPos: %.2f",
                       GPS_APP_Data.Time, GPS_APP_Data.XPos, GPS_APP_Data.YPos, GPS_APP_Data.ZPos);
                       
     if(OS_MutSemGive(i2c_mutexvar) != OS_SUCCESS){

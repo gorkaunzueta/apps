@@ -354,8 +354,8 @@ int32 IMU_APP_ReportHousekeeping(const CFE_MSG_CommandHeader_t *Msg)
         CFE_TBL_Manage(IMU_APP_Data.TblHandles[i]);
     }
     
-    CFE_EVS_SendEvent(IMU_APP_STARTUP_INF_EID, CFE_EVS_EventType_INFORMATION, "IMU App: Report HK Done. Accel X: %d. Accel Y: %d. Accel Z: %d. %s",
-                      IMU_APP_Data.Accel_x, IMU_APP_Data.Accel_y, IMU_APP_Data.Accel_z, IMU_APP_VERSION_STRING);
+    CFE_EVS_SendEvent(IMU_APP_STARTUP_INF_EID, CFE_EVS_EventType_INFORMATION, "IMU App: Report HK Done. Accel X: %d. Accel Y: %d. Accel Z: %d.",
+                      IMU_APP_Data.Accel_x, IMU_APP_Data.Accel_y, IMU_APP_Data.Accel_z);
                       
     if(OS_MutSemGive(i2c_mutexvar) != OS_SUCCESS){
         OS_printf("IMU APP: Cannot give mutex. \n");
