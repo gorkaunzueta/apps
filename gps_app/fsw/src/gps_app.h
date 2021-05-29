@@ -70,10 +70,10 @@ typedef struct
     uint8 CmdCounter;
     uint8 ErrCounter;
     
-    float Time;
-    float XPos;
-    float YPos;
-    float ZPos;
+    double Time;
+    double XPos;
+    double YPos;
+    double ZPos;
     
     /*
     ** Housekeeping telemetry packet...

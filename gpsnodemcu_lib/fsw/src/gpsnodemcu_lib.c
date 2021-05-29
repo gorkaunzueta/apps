@@ -44,23 +44,95 @@ void nodemcu_readregister(uint8_t slaveaddress, char registertoread, char *rxBuf
 
 }
 
-float nodemcu_gettime(void){
+double nodemcu_gettime(void){
 
     // Declare variables
-    char rxBuffer[4] = {0};
-    float result = 0;
-    uint32_t temp;
+    char rxBuffer[8] = {0};
+    double result = 0;
     
     // Read register from the nodemcu
-    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_TIME_REG, rxBuffer, 4);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_TIME_REG_B0, &rxBuffer[0], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_TIME_REG_B1, &rxBuffer[1], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_TIME_REG_B2, &rxBuffer[2], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_TIME_REG_B3, &rxBuffer[3], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_TIME_REG_B4, &rxBuffer[4], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_TIME_REG_B5, &rxBuffer[5], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_TIME_REG_B6, &rxBuffer[6], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_TIME_REG_B7, &rxBuffer[7], 1);
 
-    temp = ((uint32_t) rxBuffer[0] << 24) | ((uint32_t) rxBuffer[1] << 16 ) | ((uint32_t) rxBuffer[2] << 8) | ((uint32_t) rxBuffer[3]);
-       
-    result = *(float *)&temp;
+    memcpy(&result,rxBuffer,8);
 
     return result;
 
 }
+
+double nodemcu_getxpos(void){
+
+    // Declare variables
+    char rxBuffer[8] = {0};
+    double result = 0;
+    
+    // Read register from the nodemcu
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_XPOS_REG_B0, &rxBuffer[0], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_XPOS_REG_B1, &rxBuffer[1], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_XPOS_REG_B2, &rxBuffer[2], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_XPOS_REG_B3, &rxBuffer[3], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_XPOS_REG_B4, &rxBuffer[4], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_XPOS_REG_B5, &rxBuffer[5], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_XPOS_REG_B6, &rxBuffer[6], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_XPOS_REG_B7, &rxBuffer[7], 1);
+
+    memcpy(&result,rxBuffer,8);
+
+    return result;
+
+}
+
+double nodemcu_getypos(void){
+
+    // Declare variables
+    char rxBuffer[8] = {0};
+    double result = 0;
+    
+    // Read register from the nodemcu
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_YPOS_REG_B0, &rxBuffer[0], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_YPOS_REG_B1, &rxBuffer[1], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_YPOS_REG_B2, &rxBuffer[2], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_YPOS_REG_B3, &rxBuffer[3], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_YPOS_REG_B4, &rxBuffer[4], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_YPOS_REG_B5, &rxBuffer[5], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_YPOS_REG_B6, &rxBuffer[6], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_YPOS_REG_B7, &rxBuffer[7], 1);
+
+    memcpy(&result,rxBuffer,8);
+
+    return result;
+
+}
+
+double nodemcu_getzpos(void){
+
+    // Declare variables
+    char rxBuffer[8] = {0};
+    double result = 0;
+    
+    // Read register from the nodemcu
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_ZPOS_REG_B0, &rxBuffer[0], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_ZPOS_REG_B1, &rxBuffer[1], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_ZPOS_REG_B2, &rxBuffer[2], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_ZPOS_REG_B3, &rxBuffer[3], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_ZPOS_REG_B4, &rxBuffer[4], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_ZPOS_REG_B5, &rxBuffer[5], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_ZPOS_REG_B6, &rxBuffer[6], 1);
+    nodemcu_readregister(NODEMCU_SLAVE_ADDRESS, NODEMCU_ZPOS_REG_B7, &rxBuffer[7], 1);
+
+    memcpy(&result,rxBuffer,8);
+
+    return result;
+
+}
+
+
 
 
 // Function of initialization for the cFS

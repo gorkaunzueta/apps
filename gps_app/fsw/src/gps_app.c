@@ -327,9 +327,9 @@ int32 GPS_APP_ReportHousekeeping(const CFE_MSG_CommandHeader_t *Msg)
     }
 
     GPS_APP_Data.Time = nodemcu_gettime();
-    GPS_APP_Data.XPos = 0;
-    GPS_APP_Data.YPos = 0;
-    GPS_APP_Data.ZPos = 0;
+    GPS_APP_Data.XPos = nodemcu_getxpos();
+    GPS_APP_Data.YPos = nodemcu_getypos();
+    GPS_APP_Data.ZPos = nodemcu_getzpos();
       
     /*
     ** Get command execution counters...
@@ -355,8 +355,8 @@ int32 GPS_APP_ReportHousekeeping(const CFE_MSG_CommandHeader_t *Msg)
         CFE_TBL_Manage(GPS_APP_Data.TblHandles[i]);
     }
     
-    CFE_EVS_SendEvent(GPS_APP_STARTUP_INF_EID, CFE_EVS_EventType_INFORMATION, "GPS App: Report HK Done. Time: %f. %s",
-                      GPS_APP_Data.Time, GPS_APP_VERSION_STRING);
+    CFE_EVS_SendEvent(GPS_APP_STARTUP_INF_EID, CFE_EVS_EventType_INFORMATION, "GPS App: Report HK Done. Time: %f.XPos: %f. Ypos: %f. ZPos: %f",
+                      GPS_APP_Data.Time, GPS_APP_Data.XPos, GPS_APP_Data.YPos, GPS_APP_Data.ZPos);
                       
     if(OS_MutSemGive(i2c_mutexvar) != OS_SUCCESS){
         OS_printf("GPS APP: Cannot give mutex. \n");
